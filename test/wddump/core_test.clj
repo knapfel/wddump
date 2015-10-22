@@ -1,6 +1,6 @@
-(ns uberjartest.core-test
+(ns wddump.core-test
   (:require [clojure.test :refer :all]
-            [uberjartest.core :refer :all]))
+            [wddump.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

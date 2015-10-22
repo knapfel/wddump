@@ -1,4 +1,4 @@
-(ns uberjartest.core
+(ns wddump.core
   (:import (java.io BufferedReader FileReader))
   (:require [clojure.data.json :as json])
   (:gen-class))
@@ -17,7 +17,7 @@
                  (get v :numeric-id)))                
             mainsnaks)))
 
-(defn dump-line [line]
+(defn print-simple-facts [line]
   (let [entity (json/read-str line :key-fn keyword)]
     (doseq [claim (get entity :claims)]           
       (doseq [fact (get-simple-facts (val claim))]
@@ -27,4 +27,4 @@
 (defn -main  [& args]
   (with-open [rdr (BufferedReader. *in*)]
     (doseq [line (drop-last (drop 1 (line-seq rdr)))]
-      (dump-line line))))
+      (print-simple-facts line))))
