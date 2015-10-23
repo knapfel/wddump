@@ -5,6 +5,10 @@
 
 (use 'clojure.java.io)
 
+(defn trunc
+  [s n]
+  (subs s 0 (min (count s) n)))
+
 (defn get-simple-facts 
   "Get the simple item-valued facts from a claim" [mainsnaks]
   (remove nil? 
@@ -15,7 +19,7 @@
             mainsnaks)))
 
 (defn format-simple-fact [s p o]
-  (str "fact, " s ", " (subs (str p) 1) ", Q" o))
+  (str "f, " s ", " (subs (str p) 2) ", " o))
 
 (defn print-simple-facts [entity]
   (doseq [claim (get entity :claims)]           
@@ -23,7 +27,9 @@
       (println (format-simple-fact (get entity :id) (key claim) fact)))))
 
 (defn print-label [entity]
-  (println "label, "(get entity :id) ", " (.replaceAll (get-in entity [:labels :en :value])  "," "" )))
+  (let [label (get-in entity [:labels :en :value])]
+    (if label
+      (println (str "l, " (get entity :id) ", " (.replaceAll label "," "" ))))))
 
 ;; or: (FileReader. "resources/wdsnip.json")
 (defn -main  [& args]
