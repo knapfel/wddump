@@ -29,7 +29,11 @@
 (defn print-label [entity]
   (let [label (get-in entity [:labels :en :value])]
     (if label
-      (println (str "l, " (get entity :id) ", " (.replaceAll label "," "" ))))))
+      (println 
+        (str 
+          "l, " 
+          (get entity :id) ", " 
+          (trunc (.replaceAll label "," "" ) 255))))))
 
 ;; or: (FileReader. "resources/wdsnip.json")
 (defn -main  [& args]
